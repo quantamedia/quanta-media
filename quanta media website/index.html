@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QUANTA MEDIA by Dharshan K</title>
+<style>
+    body {
+        margin: 0;
+        min-height: 100vh;
+        background-color: #000;
+        overflow-x: hidden;
+        padding: 20px;
+    }
+
+    /* Fixed animation layers to let click events pass through */
+    .background, .nebula-cloud, .foreground {
+        position: fixed;
+        top: 0; 
+        left: 0;
+        width: 100%; 
+        height: 100%;
+        z-index: -1; /* Keeps animation behind content */
+        pointer-events: none; /* Prevents animation layer from blocking clicks */
+    }
+
+    /* Soft, distant twinkle */
+    .static-star {
+        position: absolute;
+        background-color: white;
+        border-radius: 50%;
+        box-shadow: 0 0 4px 1px rgba(255, 255, 255, 0.8), 0 0 8px 2px rgba(180, 220, 255, 0.45);
+        animation: twinkle 10s infinite;
+    }
+    @keyframes twinkle {
+        0%, 100% { opacity: 0.6; }
+        50% { opacity: 1; }
+    }
+
+    /* The large gas cloud */
+    .nebula-cloud {
+        background: radial-gradient(ellipse at 50% 50%, rgba(127, 0, 255, 0.15) 0%, transparent 60%),
+                    radial-gradient(ellipse at 20% 80%, rgba(0, 255, 221, 0.1) 0%, transparent 50%),
+                    radial-gradient(ellipse at 80% 20%, rgba(255, 0, 149, 0.1) 0%, transparent 50%);
+        animation: breathe 20s ease-in-out infinite alternate;
+        filter: blur(40px);
+    }
+    @keyframes breathe {
+        from { transform: scale(1) rotate(0deg); opacity: 0.7; }
+        to { transform: scale(1.1) rotate(20deg); opacity: 1; }
+    }
+
+    /* Star birth effect */
+    .forming-star {
+        position: absolute;
+        width: 4px; 
+        height: 4px;
+        border-radius: 50%;
+        background-color: #fff;
+        animation: star-birth 10s ease-out infinite;
+        opacity: 0;
+    }
+    @media (prefers-reduced-motion: reduce) {
+        .static-star, .nebula-cloud, .forming-star { animation: none; }
+    }
+    @keyframes star-birth {
+        0%, 40%, 100% {
+            transform: scale(0.1);
+            opacity: 0;
+            box-shadow: none;
+        }
+        50% {
+            transform: scale(2);
+            opacity: 1;
+            box-shadow: 0 0 20px 5px #fff, 0 0 40px 12px #00eaff;
+        }
+        60% {
+            transform: scale(0.8);
+            opacity: 0.5;
+            box-shadow: 0 0 14px 4px #fff, 0 0 28px 8px #00eaff;
+        }
+    }
+
+    h1 {
+        color: #F4F7FF;
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 60px;
+        margin-top: 0;
+    }
+    h2 {
+        color: #94a3b8;
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 30px;
+    }
+    a {
+        color: #A78BFA;
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 25px;
+        display: inline-block;
+        margin-bottom: 10px;
+        text-decoration: none;
+    }
+    a:hover {
+        text-decoration: underline;
+    }
+</style>
+</head>
+<body>
+
+<div class="background" id="static-stars"></div>
+<div class="nebula-cloud"></div>
+<div class="foreground" id="forming-stars"></div>
+
+<h1>Quanta Media</h1>
+<h2>A student startup initiative to build the future</h2>
+
+<br>
+
+<a href="about us.html">About Us</a><br>
+
+<a href="media.html">Media and Entertainment</a><br>
+
+<a href="education.html">Educational Initiatives</a><br>
+<a href="sm.html">Visit us on Social Media</a><br>
+<a href="np.html"> Our Products and Services</a><br>
+<a href="product.html">Register to use our products</a><br>
+ 
+<a href="feedback.html">Feedbacks, opinions and feedback</a> <br>
+<a href="privacy.html">About Dharshan K</a>
+
+<script>
+    const staticContainer = document.getElementById('static-stars');
+    const formingContainer = document.getElementById('forming-stars');
+    const numStaticStars = 450;
+    const numFormingStars = 80;
+
+    // Create background twinklers
+    for (let i = 0; i < numStaticStars; i++) {
+        const star = document.createElement('div');
+        star.className = 'static-star';
+        const size = 0.8 + Math.random() * 2;
+        star.style.width = `${size}px`;
+        star.style.height = `${size}px`;
+        star.style.top = `${Math.random() * 100}%`;
+        star.style.left = `${Math.random() * 100}%`;
+        star.style.animationDelay = `${Math.random() * -10}s`;
+        staticContainer.appendChild(star);
+    }
+
+    // Create bright, flaring stars
+    for (let i = 0; i < numFormingStars; i++) {
+        const star = document.createElement('div');
+        star.className = 'forming-star';
+        star.style.top = `${Math.random() * 100}%`;
+        star.style.left = `${Math.random() * 100}%`;
+        star.style.animationDelay = `${Math.random() * -10}s`;
+        formingContainer.appendChild(star);
+    }
+</script>
+
+</body>
+</html>
+
